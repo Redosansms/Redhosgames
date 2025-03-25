@@ -36,11 +36,16 @@
         .skills div {
             margin: 5px;
         }
-        a {
+        .button-container {
             position: absolute;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        .button {
             color: white;
             text-decoration: none;
             font-size: 1.2em;
@@ -49,11 +54,14 @@
             border-radius: 10px;
             background: transparent;
             font-weight: bold;
-            transition: transform 0.2s ease;
+            transition: transform 0.2s ease, background 0.2s ease;
+            display: inline-block;
+            text-align: center;
+            width: 200px;
         }
-        a:hover {
+        .button:hover {
             background: #ff6347;
-            transform: translate(-50%, -50%) scale(1.1);
+            transform: scale(1.1);
         }
         .star {
             position: absolute;
@@ -78,7 +86,10 @@
         <div>Python: 60%</div>
     </div>
 
-    <a href="https://github.com/Redosansms" target="_blank">Mon GitHub</a>
+    <div class="button-container">
+        <a class="button" href="https://github.com/Redosansms" target="_blank">Mon GitHub</a>
+        <a class="button" href="https://guns.lol/redhos" target="_blank">Guns.LOL</a>
+    </div>
 
     <script>
         function createStar() {
