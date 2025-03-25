@@ -13,6 +13,7 @@
             font-family: Arial, sans-serif;
             text-align: center;
             overflow-x: hidden;
+            scroll-behavior: smooth;
         }
         section {
             height: 100vh;
@@ -58,6 +59,17 @@
             font-size: 1.2em;
             margin-top: 20px;
         }
+        .scroll-down {
+            margin-top: 40px;
+            font-size: 1.5em;
+            font-weight: bold;
+            color: white;
+            animation: blink 1.5s infinite alternate;
+        }
+        @keyframes blink {
+            0% { opacity: 1; }
+            100% { opacity: 0.5; }
+        }
         .free-game {
             height: 100vh;
             display: flex;
@@ -94,6 +106,7 @@
             <div>HTML: 40%</div>
             <div>Python: 60%</div>
         </div>
+        <div class="scroll-down">SCROLL DOWN ↓↓</div>
     </section>
 
     <section class="free-game">
