@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Giyhun - Jeux Fourni par Redhos</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background: black;
+            color: white;
+            font-family: Arial, sans-serif;
+            text-align: center;
+            overflow: hidden;
+        }
+        h1 {
+            font-size: 3em;
+            position: absolute;
+            top: 30%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+        .skills {
+            position: absolute;
+            top: 60%;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(255, 255, 255, 0.2);
+            padding: 10px;
+            border-radius: 10px;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+        .skills div {
+            margin: 5px;
+        }
+        a {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: white;
+            text-decoration: none;
+            font-size: 1.2em;
+            padding: 15px 30px;
+            border: 2px solid white;
+            border-radius: 10px;
+            background: transparent;
+            font-weight: bold;
+            transition: transform 0.2s ease;
+        }
+        a:hover {
+            background: #ff6347;
+            transform: translate(-50%, -50%) scale(1.1);
+        }
+        .star {
+            position: absolute;
+            width: 5px;
+            height: 5px;
+            background: white;
+            border-radius: 50%;
+            opacity: 0;
+            animation: shooting 2s linear infinite;
+        }
+        @keyframes shooting {
+            0% { transform: translate(100vw, 0); opacity: 1; }
+            100% { transform: translate(-10vw, 100vh); opacity: 0; }
+        }
+    </style>
+</head>
+<body>
+    <h1>JEUX FOURNIS PAR REDHOS</h1>
+    
+    <div class="skills">
+        <div>HTML: 40%</div>
+        <div>Python: 100%</div>
+    </div>
+
+    <a href="https://github.com/Redosansms" target="_blank">Mon GitHub</a>
+
+    <script>
+        function createStar() {
+            const star = document.createElement("div");
+            star.classList.add("star");
+            document.body.appendChild(star);
+            star.style.top = Math.random() * 100 + "vh";
+            star.style.left = Math.random() * 100 + "vw";
+            setTimeout(() => { star.remove(); }, 2000);
+        }
+        setInterval(createStar, 300);
+    </script>
+</body>
+</html>
