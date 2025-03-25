@@ -12,23 +12,23 @@
             color: white;
             font-family: Arial, sans-serif;
             text-align: center;
-            overflow: hidden;
+            overflow-x: hidden;
+        }
+        section {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
         }
         h1 {
             font-size: 3em;
-            position: absolute;
-            top: 20%;
-            left: 50%;
-            transform: translate(-50%, -50%);
         }
         .button-container {
-            position: absolute;
-            top: 45%;
-            left: 50%;
-            transform: translate(-50%, -50%);
             display: flex;
             flex-direction: column;
             gap: 15px;
+            margin-top: 20px;
         }
         .button {
             color: white;
@@ -49,10 +49,6 @@
             transform: scale(1.1);
         }
         .skills {
-            position: absolute;
-            top: 60%;
-            left: 50%;
-            transform: translateX(-50%);
             background: rgba(255, 255, 255, 0.2);
             padding: 10px 20px;
             border-radius: 10px;
@@ -60,45 +56,50 @@
             justify-content: center;
             gap: 20px;
             font-size: 1.2em;
+            margin-top: 20px;
         }
-        .star {
-            position: absolute;
-            width: 5px;
-            height: 5px;
-            background: white;
-            border-radius: 50%;
-            opacity: 0;
-            animation: shooting 2s linear infinite;
+        .free-game {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            background: #111;
         }
-        @keyframes shooting {
-            0% { transform: translate(100vw, 0); opacity: 1; }
-            100% { transform: translate(-10vw, 100vh); opacity: 0; }
+        .free-game a {
+            color: #ff6347;
+            text-decoration: none;
+            font-size: 1.5em;
+            font-weight: bold;
+            border: 2px solid #ff6347;
+            padding: 15px 30px;
+            border-radius: 10px;
+            transition: background 0.3s ease;
+        }
+        .free-game a:hover {
+            background: #ff6347;
+            color: white;
         }
     </style>
 </head>
 <body>
-    <h1>JEUX FOURNIS PAR REDHOS</h1>
+    
+    <section>
+        <h1>JEUX FOURNIS PAR REDHOS</h1>
+        <div class="button-container">
+            <a class="button" href="https://github.com/Redosansms" target="_blank">Mon GitHub</a>
+            <a class="button" href="https://guns.lol/redhos" target="_blank">Guns.LOL</a>
+        </div>
+        <div class="skills">
+            <div>HTML: 40%</div>
+            <div>Python: 60%</div>
+        </div>
+    </section>
 
-    <div class="button-container">
-        <a class="button" href="https://github.com/Redosansms" target="_blank">Mon GitHub</a>
-        <a class="button" href="https://guns.lol/redhos" target="_blank">Guns.LOL</a>
-    </div>
+    <section class="free-game">
+        <h1>FREE STRANDED DEEP</h1>
+        <a href="https://pixeldrain.com/u/2DBFkddx" target="_blank">Télécharger</a>
+    </section>
 
-    <div class="skills">
-        <div>HTML: 40%</div>
-        <div>Python: 60%</div>
-    </div>
-
-    <script>
-        function createStar() {
-            const star = document.createElement("div");
-            star.classList.add("star");
-            document.body.appendChild(star);
-            star.style.top = Math.random() * 100 + "vh";
-            star.style.left = Math.random() * 100 + "vw";
-            setTimeout(() => { star.remove(); }, 2000);
-        }
-        setInterval(createStar, 300);
-    </script>
 </body>
 </html>
