@@ -8,63 +8,67 @@
         body {
             margin: 0;
             padding: 0;
-            background: black;
+            background: #121212;
             color: white;
-            font-family: Arial, sans-serif;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             text-align: center;
             overflow-x: hidden;
             scroll-behavior: smooth;
-            position: relative;
         }
         section {
-            height: 80vh; /* Réduit la hauteur pour rapprocher les sections */
+            min-height: 70vh; /* Réduction de la hauteur pour rapprocher les sections */
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
+            padding: 30px 0; /* Réduction de l'espacement en haut et en bas */
         }
         h1 {
-            font-size: 3em;
+            font-size: 2.5em;
+            margin-bottom: 15px;
+            font-weight: 600;
+            color: #f2f2f2;
         }
         .button-container {
             display: flex;
             flex-direction: column;
-            gap: 15px;
-            margin-top: 20px;
+            gap: 15px; /* Réduction de l'espacement entre les boutons */
+            margin-top: 15px;
         }
         .button {
             color: white;
             text-decoration: none;
-            font-size: 1.2em;
-            padding: 15px 30px;
-            border: 2px solid white;
-            border-radius: 10px;
-            background: transparent;
-            font-weight: bold;
-            transition: transform 0.2s ease, background 0.2s ease;
+            font-size: 1.1em;
+            padding: 12px 24px;
+            border: 2px solid transparent;
+            border-radius: 8px;
+            background: linear-gradient(90deg, #ff6347, #ff4500);
+            font-weight: 500;
+            transition: background 0.3s, transform 0.3s;
             display: inline-block;
-            text-align: center;
             width: 200px;
+            text-align: center;
         }
         .button:hover {
-            background: #ff6347;
-            transform: scale(1.1);
+            background: linear-gradient(90deg, #ff4500, #ff6347);
+            transform: translateY(-5px);
         }
         .skills {
-            background: rgba(255, 255, 255, 0.2);
-            padding: 10px 20px;
-            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 12px 24px;
+            border-radius: 8px;
             display: flex;
             justify-content: center;
-            gap: 20px;
-            font-size: 1.2em;
+            gap: 25px;
+            font-size: 1.1em;
             margin-top: 20px;
+            font-weight: 500;
         }
         .scroll-down {
-            margin-top: 40px;
-            font-size: 1.5em;
+            margin-top: 30px;
+            font-size: 1.3em;
+            color: #f2f2f2;
             font-weight: bold;
-            color: white;
             animation: blink 1.5s infinite alternate;
         }
         @keyframes blink {
@@ -72,27 +76,42 @@
             100% { opacity: 0.5; }
         }
         .free-game {
-            height: 80vh; /* Réduction de la hauteur */
             display: flex;
+            flex-direction: column;
             align-items: center;
             justify-content: center;
-            flex-direction: column;
-            background: #111;
-            margin-top: -10vh; /* Rapproche encore plus les jeux */
+            margin-top: 25px; /* Espacement réduit entre les jeux */
+        }
+        .game-container {
+            position: relative;
+            padding: 30px;
+            background: rgba(0, 0, 0, 0.7);
+            border-radius: 15px;
+            border: 1px solid #333;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            margin-bottom: 25px;
+            width: 100%;
+            max-width: 450px;
+            backdrop-filter: blur(8px); /* Ajout de l'effet flou */
+        }
+        .game-container:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.6);
         }
         .download-button {
             color: white;
             text-decoration: none;
-            font-size: 1.5em;
+            font-size: 1.3em;
             font-weight: bold;
-            padding: 15px 30px;
-            border-radius: 10px;
+            padding: 12px 25px;
+            border-radius: 8px;
             position: relative;
             overflow: hidden;
             display: inline-block;
             z-index: 1;
             transition: transform 0.3s ease-in-out;
-            margin: 10px;
+            margin-top: 20px;
         }
         .download-button::before {
             content: "";
@@ -119,7 +138,7 @@
             z-index: -1;
         }
         .download-button:hover {
-            transform: scale(1.2);
+            transform: scale(1.05);
         }
         @keyframes borderAnimation {
             0% { background-position: 0% 50%; }
@@ -139,6 +158,15 @@
             0% { transform: translate(100vw, 0); opacity: 1; }
             100% { transform: translate(-10vw, 100vh); opacity: 0; }
         }
+        .system-requirements {
+            font-size: 1em;
+            color: #ccc;
+            margin-top: 15px;
+            text-align: left;
+            line-height: 1.5;
+            font-weight: 400;
+            max-width: 500px;
+        }
     </style>
 </head>
 <body>
@@ -157,13 +185,36 @@
     </section>
 
     <section class="free-game">
-        <h1>FREE LETHAL COMPANY</h1>
-        <a class="download-button" href="https://pixeldrain.com/u/MyTuH6EB" target="_blank">Télécharger</a>
+        <div class="game-container">
+            <h1>FREE LETHAL COMPANY</h1>
+            <a class="download-button" href="https://pixeldrain.com/u/MyTuH6EB" target="_blank">Télécharger</a>
+            <div class="system-requirements">
+                <strong>MINIMALE :</strong><br>
+                Système d'exploitation et processeur 64 bits nécessaires<br>
+                Système d'exploitation : Windows 10<br>
+                Processeur : Intel Core i5-7400 CPU @ 3.00GHz ; Shader Model 5<br>
+                Graphiques : NVIDIA GForce GTX 1050<br>
+                DirectX : Version 11<br>
+                Réseau : connexion internet haut débit<br>
+                Espace disque : 2 GB d'espace disque disponible
+            </div>
+        </div>
     </section>
 
     <section class="free-game">
-        <h1>FREE STRANDED DEEP</h1>
-        <a class="download-button" href="https://pixeldrain.com/u/2DBFkddx" target="_blank">Télécharger</a>
+        <div class="game-container">
+            <h1>FREE STRANDED DEEP</h1>
+            <a class="download-button" href="https://pixeldrain.com/u/2DBFkddx" target="_blank">Télécharger</a>
+            <div class="system-requirements">
+                <strong>MINIMALE :</strong><br>
+                Système d'exploitation : Windows 7<br>
+                Processeur : X64 Quad Core CPU 2.0GHz+<br>
+                Mémoire vive : 8 GB de mémoire<br>
+                Graphiques : 2GB VRAM<br>
+                DirectX : Version 11<br>
+                Espace disque : 4 GB d'espace disque disponible
+            </div>
+        </div>
     </section>
 
     <script>
