@@ -3,230 +3,516 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GitHub - Jeux Fourni par Redhos</title>
+    <title>Jeux Gratuits par Redhos</title>
     <style>
+        :root {
+            --main-color: #4a6fa5;
+            --secondary-color: #2a4365;
+            --accent-color: #5a82b5;
+            --text-light: #e0e0e0;
+            --text-dark: #121212;
+            --bg-dark: #0a0a0a;
+            --bg-light: rgba(255, 255, 255, 0.05);
+        }
+        
         body {
             margin: 0;
             padding: 0;
-            background: #121212;
-            color: white;
+            background: var(--bg-dark);
+            color: var(--text-light);
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             text-align: center;
             overflow-x: hidden;
             scroll-behavior: smooth;
+            line-height: 1.6;
+            position: relative;
         }
+        
+        header {
+            padding: 20px;
+            background: rgba(0, 0, 0, 0.7);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 100;
+            backdrop-filter: blur(5px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 1.5em;
+            font-weight: 600;
+            color: white;
+            text-decoration: none;
+        }
+        
+        nav a {
+            color: var(--text-light);
+            text-decoration: none;
+            margin: 0 15px;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        
+        nav a:hover {
+            color: var(--accent-color);
+        }
+        
         section {
-            min-height: 70vh; /* Réduction de la hauteur pour rapprocher les sections */
+            min-height: 100vh;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            padding: 30px 0; /* Réduction de l'espacement en haut et en bas */
+            padding: 80px 20px 40px;
+            position: relative;
+            z-index: 1;
         }
+        
+        .hero {
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
         h1 {
-            font-size: 2.5em;
-            margin-bottom: 15px;
-            font-weight: 600;
-            color: #f2f2f2;
+            font-size: 2.8em;
+            margin-bottom: 20px;
+            font-weight: 700;
+            color: white;
+            position: relative;
         }
+        
+        h1::after {
+            content: '';
+            display: block;
+            width: 80px;
+            height: 4px;
+            background: var(--main-color);
+            margin: 20px auto;
+            border-radius: 3px;
+        }
+        
+        h2 {
+            font-size: 1.8em;
+            margin-bottom: 30px;
+            color: var(--accent-color);
+        }
+        
+        p {
+            font-size: 1.1em;
+            margin-bottom: 30px;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
         .button-container {
             display: flex;
-            flex-direction: column;
-            gap: 15px; /* Réduction de l'espacement entre les boutons */
-            margin-top: 15px;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 30px;
         }
+        
         .button {
             color: white;
             text-decoration: none;
             font-size: 1.1em;
-            padding: 12px 24px;
-            border: 2px solid transparent;
-            border-radius: 8px;
-            background: linear-gradient(90deg, #ff6347, #ff4500);
+            padding: 14px 32px;
+            border-radius: 6px;
+            background: var(--secondary-color);
             font-weight: 500;
-            transition: background 0.3s, transform 0.3s;
-            display: inline-block;
-            width: 200px;
-            text-align: center;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            min-width: 200px;
         }
+        
         .button:hover {
-            background: linear-gradient(90deg, #ff4500, #ff6347);
-            transform: translateY(-5px);
+            background: var(--accent-color);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
         }
+        
         .skills {
-            background: rgba(255, 255, 255, 0.1);
-            padding: 12px 24px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 30px;
+            margin-top: 40px;
+        }
+        
+        .skill-card {
+            background: var(--bg-light);
+            padding: 20px 30px;
             border-radius: 8px;
-            display: flex;
-            justify-content: center;
-            gap: 25px;
-            font-size: 1.1em;
-            margin-top: 20px;
-            font-weight: 500;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            min-width: 150px;
+            transition: transform 0.3s;
         }
-        .scroll-down {
-            margin-top: 30px;
-            font-size: 1.3em;
-            color: #f2f2f2;
-            font-weight: bold;
-            animation: blink 1.5s infinite alternate;
-        }
-        @keyframes blink {
-            0% { opacity: 1; }
-            100% { opacity: 0.5; }
-        }
-        .free-game {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            margin-top: 25px; /* Espacement réduit entre les jeux */
-        }
-        .game-container {
-            position: relative;
-            padding: 30px;
-            background: rgba(0, 0, 0, 0.7);
-            border-radius: 15px;
-            border: 1px solid #333;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            margin-bottom: 25px;
-            width: 100%;
-            max-width: 450px;
-            backdrop-filter: blur(8px); /* Ajout de l'effet flou */
-        }
-        .game-container:hover {
+        
+        .skill-card:hover {
             transform: translateY(-5px);
-            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.6);
         }
+        
+        .game-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        .game-card {
+            background: rgba(20, 20, 20, 0.8);
+            border-radius: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 30px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .game-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+            border-color: rgba(255, 255, 255, 0.2);
+        }
+        
+        .game-card h3 {
+            font-size: 1.5em;
+            margin-bottom: 15px;
+            color: white;
+        }
+        
+        .download-button-wrapper {
+            position: relative;
+            display: inline-block;
+            margin-top: 20px;
+        }
+        
         .download-button {
             color: white;
             text-decoration: none;
-            font-size: 1.3em;
-            font-weight: bold;
-            padding: 12px 25px;
-            border-radius: 8px;
-            position: relative;
-            overflow: hidden;
+            font-size: 1.1em;
+            font-weight: 500;
+            padding: 12px 30px;
+            border-radius: 6px;
+            background: var(--main-color);
             display: inline-block;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            position: relative;
             z-index: 1;
-            transition: transform 0.3s ease-in-out;
-            margin-top: 20px;
         }
-        .download-button::before {
-            content: "";
-            position: absolute;
-            top: -4px;
-            left: -4px;
-            right: -4px;
-            bottom: -4px;
-            border-radius: 12px;
-            background: linear-gradient(45deg, red, blue, green, yellow, purple, red);
-            background-size: 400%;
-            z-index: -1;
-            animation: borderAnimation 4s linear infinite;
-        }
-        .download-button::after {
-            content: "";
-            position: absolute;
-            top: 2px;
-            left: 2px;
-            right: 2px;
-            bottom: 2px;
-            background: #111;
-            border-radius: 8px;
-            z-index: -1;
-        }
+        
         .download-button:hover {
-            transform: scale(1.05);
+            background: var(--accent-color);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
         }
-        @keyframes borderAnimation {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-        }
-        .star {
+        
+        /* Fine ligne RGB animée */
+        .rgb-line {
             position: absolute;
-            width: 5px;
-            height: 5px;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            border-radius: 8px;
+            background: linear-gradient(90deg, 
+                      #ff0000, #ff00ff, #0000ff, 
+                      #00ffff, #00ff00, #ffff00, 
+                      #ff0000);
+            background-size: 400% 400%;
+            z-index: -1;
+            animation: rgbAnimation 4s linear infinite;
+            padding: 1px;
+            -webkit-mask: 
+                linear-gradient(#fff 0 0) content-box, 
+                linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+        }
+        
+        @keyframes rgbAnimation {
+            0% { background-position: 0% 50%; }
+            100% { background-position: 400% 50%; }
+        }
+        
+        .system-requirements {
+            font-size: 0.95em;
+            color: #b0b0b0;
+            margin-top: 20px;
+            text-align: left;
+            line-height: 1.6;
+        }
+        
+        .system-requirements strong {
+            color: white;
+            font-weight: 500;
+        }
+        
+        /* Étoiles filantes */
+        .shooting-star {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 2px;
+            height: 2px;
             background: white;
             border-radius: 50%;
+            z-index: 0;
+            pointer-events: none;
+            animation: shootingStar linear;
             opacity: 0;
-            animation: shooting 1.5s linear infinite;
         }
-        @keyframes shooting {
-            0% { transform: translate(100vw, 0); opacity: 1; }
-            100% { transform: translate(-10vw, 100vh); opacity: 0; }
+        
+        @keyframes shootingStar {
+            0% {
+                transform: translateX(0) translateY(0);
+                opacity: 1;
+            }
+            70% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateX(100vw) translateY(100vh);
+                opacity: 0;
+            }
         }
-        .system-requirements {
-            font-size: 1em;
-            color: #ccc;
-            margin-top: 15px;
-            text-align: left;
-            line-height: 1.5;
-            font-weight: 400;
-            max-width: 500px;
+        
+        footer {
+            background: rgba(0, 0, 0, 0.7);
+            padding: 30px;
+            text-align: center;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(5px);
+        }
+        
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 20px;
+        }
+        
+        .social-links a {
+            color: var(--text-light);
+            font-size: 1.5em;
+            transition: color 0.3s;
+        }
+        
+        .social-links a:hover {
+            color: var(--accent-color);
+        }
+        
+        /* Style pour le Discord */
+        .discord-info {
+            background: rgba(88, 101, 242, 0.2);
+            padding: 15px;
+            border-radius: 8px;
+            margin: 20px auto;
+            max-width: 300px;
+            border: 1px solid rgba(88, 101, 242, 0.5);
+        }
+        
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            h1 {
+                font-size: 2em;
+            }
+            
+            .game-grid {
+                grid-template-columns: 1fr;
+            }
         }
     </style>
 </head>
 <body>
     
-    <section>
-        <h1>JEUX FOURNIS PAR REDHOS</h1>
+    <header>
+        <div class="header-content">
+            <a href="#" class="logo">REDHOS GAMES</a>
+            <nav>
+                <a href="#games">Jeux</a>
+                <a href="#about">À propos</a>
+                <a href="#contact">Contact</a>
+            </nav>
+        </div>
+    </header>
+
+    <section class="hero">
+        <h1>JEUX GRATUITS PAR REDHOS</h1>
+        <p>Découvrez une sélection de jeux PC gratuits soigneusement choisis. Des heures de divertissement sans dépenser un centime !</p>
+        
         <div class="button-container">
-            <a class="button" href="https://github.com/Redosansms" target="_blank">Mon GitHub</a>
-            <a class="button" href="https://guns.lol/redhos" target="_blank">Guns.LOL</a>
+            <a href="#games" class="button">Voir les jeux</a>
+            <a href="https://github.com/Redosansms" target="_blank" class="button">Mon GitHub</a>
+            <a href="https://guns.lol/redhos" target="_blank" class="button">Guns.LOL</a>
         </div>
+        
         <div class="skills">
-            <div>HTML: 40%</div>
-            <div>Python: 60%</div>
-        </div>
-        <div class="scroll-down">SCROLL DOWN ↓↓</div>
-    </section>
-
-    <section class="free-game">
-        <div class="game-container">
-            <h1>FREE LETHAL COMPANY</h1>
-            <a class="download-button" href="https://pixeldrain.com/u/MyTuH6EB" target="_blank">Télécharger</a>
-            <div class="system-requirements">
-                <strong>MINIMALE :</strong><br>
-                Système d'exploitation et processeur 64 bits nécessaires<br>
-                Système d'exploitation : Windows 10<br>
-                Processeur : Intel Core i5-7400 CPU @ 3.00GHz ; Shader Model 5<br>
-                Graphiques : NVIDIA GForce GTX 1050<br>
-                DirectX : Version 11<br>
-                Réseau : connexion internet haut débit<br>
-                Espace disque : 2 GB d'espace disque disponible
+            <div class="skill-card">
+                <div>HTML/CSS</div>
+                <div>40%</div>
+            </div>
+            <div class="skill-card">
+                <div>Python</div>
+                <div>60%</div>
+            </div>
+            <div class="skill-card">
+                <div>Jeux PC</div>
+                <div>100%</div>
             </div>
         </div>
     </section>
 
-    <section class="free-game">
-        <div class="game-container">
-            <h1>FREE STRANDED DEEP</h1>
-            <a class="download-button" href="https://pixeldrain.com/u/2DBFkddx" target="_blank">Télécharger</a>
-            <div class="system-requirements">
-                <strong>MINIMALE :</strong><br>
-                Système d'exploitation : Windows 7<br>
-                Processeur : X64 Quad Core CPU 2.0GHz+<br>
-                Mémoire vive : 8 GB de mémoire<br>
-                Graphiques : 2GB VRAM<br>
-                DirectX : Version 11<br>
-                Espace disque : 4 GB d'espace disque disponible
+    <section id="games">
+        <h2>NOS DERNIERS JEUX</h2>
+        <p>Des jeux testés et approuvés, prêts à être téléchargés et installés en quelques clics.</p>
+        
+        <div class="game-grid">
+            <div class="game-card">
+                <h3>FREE LETHAL COMPANY</h3>
+                <p>Un jeu d'horreur coopératif où vous explorez des installations abandonnées pour récupérer des objets de valeur.</p>
+                
+                <div class="download-button-wrapper">
+                    <div class="rgb-line"></div>
+                    <a href="https://pixeldrain.com/u/MyTuH6EB" target="_blank" class="download-button">Télécharger</a>
+                </div>
+                
+                <div class="system-requirements">
+                    <strong>CONFIGURATION MINIMALE :</strong><br>
+                    • Windows 10 64-bit<br>
+                    • Intel Core i5-7400<br>
+                    • NVIDIA GTX 1050<br>
+                    • 2 GB d'espace disque
+                </div>
+            </div>
+            
+            <div class="game-card">
+                <h3>FREE STRANDED DEEP</h3>
+                <p>Survivez après un crash d'avion dans l'océan Pacifique. Construisez, explorez et survivez dans ce monde ouvert.</p>
+                
+                <div class="download-button-wrapper">
+                    <div class="rgb-line"></div>
+                    <a href="https://pixeldrain.com/u/2DBFkddx" target="_blank" class="download-button">Télécharger</a>
+                </div>
+                
+                <div class="system-requirements">
+                    <strong>CONFIGURATION MINIMALE :</strong><br>
+                    • Windows 7<br>
+                    • Quad Core 2.0GHz+<br>
+                    • 2GB VRAM<br>
+                    • 4 GB d'espace disque
+                </div>
+            </div>
+            
+            <div class="game-card">
+                <h3>À VENIR</h3>
+                <p>D'autres jeux gratuits seront bientôt disponibles. Revenez régulièrement pour découvrir les nouveautés !</p>
+                <div class="download-button" style="background: #555; cursor: not-allowed;">Bientôt disponible</div>
             </div>
         </div>
     </section>
+
+    <section id="about">
+        <h2>À PROPOS DE REDHOS</h2>
+        <p>Passionné de jeux vidéo et de développement, je partage avec vous des jeux gratuits soigneusement sélectionnés.</p>
+        
+        <div class="skills" style="margin-top: 40px;">
+            <div class="skill-card">
+                <div>+50</div>
+                <div>Jeux testés</div>
+            </div>
+            <div class="skill-card">
+                <div>100%</div>
+                <div>Gratuits</div>
+            </div>
+            <div class="skill-card">
+                <div>24/7</div>
+                <div>Disponibles</div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact">
+        <h2>CONTACT</h2>
+        <p>Une question ou une suggestion ? N'hésitez pas à me contacter :</p>
+        
+        <div class="discord-info">
+            <p>Discord: <strong>chuck_the_yellow</strong></p>
+        </div>
+        
+        <div class="button-container">
+            <a href="https://github.com/Redosansms" target="_blank" class="button">GitHub</a>
+            <a href="https://guns.lol/redhos" target="_blank" class="button">Guns.LOL</a>
+        </div>
+    </section>
+
+    <footer>
+        <p>© 2023 Redhos Games - Tous droits réservés</p>
+        <div class="social-links">
+            <a href="#" target="_blank">📱</a>
+            <a href="#" target="_blank">💬</a>
+            <a href="#" target="_blank">🎮</a>
+        </div>
+    </footer>
 
     <script>
-        function createStar() {
+        // Création des étoiles filantes
+        function createShootingStars() {
             const star = document.createElement("div");
-            star.classList.add("star");
+            star.classList.add("shooting-star");
             document.body.appendChild(star);
-            star.style.top = Math.random() * 100 + "vh";
-            star.style.left = Math.random() * 100 + "vw";
-            setTimeout(() => { star.remove(); }, 1500);
+            
+            // Position de départ aléatoire
+            const startX = Math.random() * 20;
+            const startY = Math.random() * 20;
+            star.style.left = startX + "vw";
+            star.style.top = startY + "vh";
+            
+            // Durée aléatoire
+            const duration = 2 + Math.random() * 3;
+            star.style.animationDuration = duration + "s";
+            
+            // Supprimer après l'animation
+            setTimeout(() => {
+                star.remove();
+            }, duration * 1000);
         }
-        setInterval(createStar, 80);
+        
+        // Lancer régulièrement des étoiles filantes
+        setInterval(createShootingStars, 800);
+        
+        // Initialisation
+        window.onload = function() {
+            // Effet de fondu au chargement
+            document.body.style.opacity = '0';
+            setTimeout(() => {
+                document.body.style.transition = 'opacity 0.5s ease';
+                document.body.style.opacity = '1';
+            }, 100);
+            
+            // Créer quelques étoiles au départ
+            for (let i = 0; i < 5; i++) {
+                setTimeout(createShootingStars, i * 300);
+            }
+        };
     </script>
 
 </body>
