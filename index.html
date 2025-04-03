@@ -29,7 +29,7 @@
         }
         
         header {
-            padding: 20px;
+            padding: 15px 20px;
             background: rgba(0, 0, 0, 0.7);
             position: fixed;
             width: 100%;
@@ -48,10 +48,32 @@
         }
         
         .logo {
-            font-size: 1.5em;
-            font-weight: 600;
-            color: white;
+            display: flex;
+            align-items: center;
             text-decoration: none;
+        }
+        
+        .logo img {
+            height: 40px;
+            transition: transform 0.3s ease;
+        }
+        
+        .logo img:hover {
+            transform: scale(1.05);
+        }
+        
+        .main-logo {
+            max-width: 400px;
+            width: 100%;
+            margin: 0 auto 30px;
+            display: block;
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
         }
         
         nav a {
@@ -221,7 +243,6 @@
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
         }
         
-        /* Fine ligne RGB animée */
         .rgb-line {
             position: absolute;
             top: -2px;
@@ -262,7 +283,6 @@
             font-weight: 500;
         }
         
-        /* Étoiles filantes */
         .shooting-star {
             position: fixed;
             top: 0;
@@ -316,7 +336,6 @@
             color: var(--accent-color);
         }
         
-        /* Style pour le Discord */
         .discord-info {
             background: rgba(88, 101, 242, 0.2);
             padding: 15px;
@@ -330,6 +349,10 @@
             .header-content {
                 flex-direction: column;
                 gap: 15px;
+            }
+            
+            .main-logo {
+                max-width: 250px;
             }
             
             h1 {
@@ -346,7 +369,9 @@
     
     <header>
         <div class="header-content">
-            <a href="#" class="logo">REDHOS GAMES</a>
+            <a href="#" class="logo">
+                <img src="logo.png" alt="Redhos Games">
+            </a>
             <nav>
                 <a href="#games">Jeux</a>
                 <a href="#about">À propos</a>
@@ -356,6 +381,7 @@
     </header>
 
     <section class="hero">
+        <img src="logo.png" alt="Logo Redhos" class="main-logo">
         <h1>JEUX GRATUITS PAR REDHOS</h1>
         <p>Cr4ck by redhos tester et approuver</p>
         
@@ -474,46 +500,37 @@
     </footer>
 
     <script>
-        // Création des étoiles filantes
         function createShootingStars() {
             const star = document.createElement("div");
             star.classList.add("shooting-star");
             document.body.appendChild(star);
             
-            // Position de départ aléatoire
             const startX = Math.random() * 20;
             const startY = Math.random() * 20;
             star.style.left = startX + "vw";
             star.style.top = startY + "vh";
             
-            // Durée aléatoire
             const duration = 2 + Math.random() * 3;
             star.style.animationDuration = duration + "s";
             
-            // Supprimer après l'animation
             setTimeout(() => {
                 star.remove();
             }, duration * 1000);
         }
         
-        // Lancer régulièrement des étoiles filantes
         setInterval(createShootingStars, 800);
         
-        // Initialisation
         window.onload = function() {
-            // Effet de fondu au chargement
             document.body.style.opacity = '0';
             setTimeout(() => {
                 document.body.style.transition = 'opacity 0.5s ease';
                 document.body.style.opacity = '1';
             }, 100);
             
-            // Créer quelques étoiles au départ
             for (let i = 0; i < 5; i++) {
                 setTimeout(createShootingStars, i * 300);
             }
         };
     </script>
-
 </body>
 </html>
