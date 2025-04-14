@@ -1,3 +1,6 @@
+Voici le code complet avec 3 vies ajoutées au personnage dans le jeu Zombie Survivor :
+
+```html
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -145,7 +148,6 @@
             margin-top: 30px;
         }
         
-        /* Nouveau style des boutons inspiré du deuxième code */
         .button {
             color: white;
             text-decoration: none;
@@ -216,7 +218,6 @@
             color: white;
         }
         
-        /* Nouveau style du bouton de téléchargement */
         .download-button {
             color: white;
             text-decoration: none;
@@ -382,6 +383,22 @@
             background-color: rgba(0, 0, 0, 0.5);
             padding: 10px;
             border-radius: 5px;
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+        
+        #livesContainer {
+            display: flex;
+            gap: 5px;
+            margin-top: 5px;
+        }
+        
+        .life {
+            width: 15px;
+            height: 15px;
+            background-color: #FF0000;
+            border-radius: 50%;
         }
         
         #zombieGameOver {
@@ -564,6 +581,7 @@
                         <div>Zombies: <span id="zombieCount">0</span></div>
                         <div>Dégâts: <span id="damage">1</span></div>
                         <div>Vitesse: <span id="speed">5</span></div>
+                        <div>Vies: <div id="livesContainer"></div></div>
                     </div>
                     
                     <div id="zombieGameOver">
@@ -676,6 +694,7 @@
         const zombieCountElement = document.getElementById('zombieCount');
         const damageElement = document.getElementById('damage');
         const speedElement = document.getElementById('speed');
+        const livesContainer = document.getElementById('livesContainer');
         const gameOverScreen = document.getElementById('zombieGameOver');
         const finalScoreElement = document.getElementById('finalScore');
         const restartBtn = document.getElementById('restartBtn');
@@ -687,6 +706,7 @@
         let zombiesKilled = 0;
         let playerDamage = 1;
         let playerSpeed = 5;
+        let playerLives = 3;
         let playerX = gameContainer.offsetWidth / 2;
         let playerY = gameContainer.offsetHeight / 2;
         let zombies = [];
@@ -697,6 +717,7 @@
         let lastMoveAngle = 0;
         let shootInterval;
         let gameStarted = false;
+        let invincible = false;
         
         // Écouteurs d'événements
         document.addEventListener('keydown', (e) => {
@@ -727,6 +748,16 @@
         startBtn.addEventListener('click', startGame);
         restartBtn.addEventListener('click', startGame);
         
+        // Créer les éléments de vie
+        function createLives() {
+            livesContainer.innerHTML = '';
+            for (let i = 0; i < playerLives; i++) {
+                const life = document.createElement('div');
+                life.className = 'life';
+                livesContainer.appendChild(life);
+            }
+        }
+        
         // Initialisation du jeu
         function initGame() {
             score = 0;
@@ -734,16 +765,19 @@
             zombiesKilled = 0;
             playerDamage = 1;
             playerSpeed = 5;
+            playerLives = 3;
             playerX = gameContainer.offsetWidth / 2;
             playerY = gameContainer.offsetHeight / 2;
             zombies = [];
             bullets = [];
             upgrades = [];
             gameRunning = true;
+            invincible = false;
             
             // Supprimer tous les zombies et balles restants
             document.querySelectorAll('.zombie, .bullet, .upgrade').forEach(el => el.remove());
             
+            createLives();
             updateUI();
             spawnZombies(3);
             gameOverScreen.style.display = 'none';
@@ -768,6 +802,7 @@
             zombieCountElement.textContent = zombies.length;
             damageElement.textContent = playerDamage;
             speedElement.textContent = playerSpeed;
+            createLives();
         }
         
         // Positionnement du joueur
@@ -964,7 +999,9 @@
                             playerSpeed += 0.5;
                             break;
                         case 'health':
-                            // Implémenter la santé si nécessaire
+                            if (playerLives < 3) {
+                                playerLives++;
+                            }
                             break;
                     }
                     
@@ -972,16 +1009,31 @@
                 }
             });
             
-            // Player vs Zombies (game over)
-            zombies.forEach(zombie => {
-                const dx = playerX - zombie.x;
-                const dy = playerY - zombie.y;
-                const distance = Math.sqrt(dx * dx + dy * dy);
-                
-                if (distance < 35) { // Distance de game over
-                    gameOver();
-                }
-            });
+            // Player vs Zombies (perte de vie)
+            if (!invincible) {
+                zombies.forEach(zombie => {
+                    const dx = playerX - zombie.x;
+                    const dy = playerY - zombie.y;
+                    const distance = Math.sqrt(dx * dx + dy * dy);
+                    
+                    if (distance < 35) { // Distance de collision
+                        playerLives--;
+                        updateUI();
+                        
+                        if (playerLives <= 0) {
+                            gameOver();
+                        } else {
+                            // Période d'invincibilité après avoir perdu une vie
+                            invincible = true;
+                            player.style.opacity = '0.5';
+                            setTimeout(() => {
+                                invincible = false;
+                                player.style.opacity = '1';
+                            }, 2000);
+                        }
+                    }
+                });
+            }
         }
         
         // Game over
@@ -1027,8 +1079,8 @@
                 shoot(lastMoveAngle);
             }
             
-            // Déplacement des zombies
-            zombies.forEach(zombie => {
+                    // Déplacement des zombies
+                    zombies.forEach(zombie => {
                 const dx = playerX - zombie.x;
                 const dy = playerY - zombie.y;
                 const distance = Math.sqrt(dx * dx + dy * dy);
