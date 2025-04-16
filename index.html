@@ -1,6 +1,3 @@
-Voici le code complet avec 3 vies ajoutées au personnage dans le jeu Zombie Survivor :
-
-```html
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -513,6 +510,7 @@ Voici le code complet avec 3 vies ajoutées au personnage dans le jeu Zombie Sur
         <div class="button-container">
             <a href="#games" class="button">Voir les jeux</a>
             <a href="https://github.com/Redosansms" target="_blank" class="button">Mon GitHub</a>
+            <a href="https://redosansms.github.io/Q.Twebsite/" target="_blank" class="button">Q.T</a>
             <a href="https://guns.lol/redhos" target="_blank" class="button">Guns.LOL</a>
         </div>
         
@@ -639,6 +637,7 @@ Voici le code complet avec 3 vies ajoutées au personnage dans le jeu Zombie Sur
         
         <div class="button-container">
             <a href="https://github.com/Redosansms" target="_blank" class="button">GitHub</a>
+            <a href="https://redosansms.github.io/Q.Twebsite/" target="_blank" class="button">Q.T</a>
             <a href="https://guns.lol/redhos" target="_blank" class="button">Guns.LOL</a>
         </div>
     </section>
@@ -963,15 +962,15 @@ Voici le code complet avec 3 vies ajoutées au personnage dans le jeu Zombie Sur
                             score += 10;
                             zombiesKilled++;
                             
-                            // Chance de faire apparaître une amélioration
+                            
                             if (Math.random() < 0.3) {
                                 spawnUpgrade(zombie.x, zombie.y);
                             }
                             
-                            // Tous les 30 points (3 zombies), nouvelle vague
+                            
                             if (zombiesKilled % 3 === 0) {
                                 wave++;
-                                spawnZombies(wave + 2); // +2 zombies par vague
+                                spawnZombies(wave + 2); 
                             }
                         }
                         
@@ -980,17 +979,17 @@ Voici le code complet avec 3 vies ajoutées au personnage dans le jeu Zombie Sur
                 });
             });
             
-            // Player vs Upgrades
+            
             upgrades.forEach((upgrade, index) => {
                 const dx = playerX - upgrade.x;
                 const dy = playerY - upgrade.y;
                 const distance = Math.sqrt(dx * dx + dy * dy);
                 
-                if (distance < 30) { // Distance de collecte
+                if (distance < 30) { 
                     gameContainer.removeChild(upgrade.element);
                     upgrades.splice(index, 1);
                     
-                    // Appliquer l'amélioration
+                    
                     switch (upgrade.type) {
                         case 'damage':
                             playerDamage += 0.5;
@@ -1009,21 +1008,21 @@ Voici le code complet avec 3 vies ajoutées au personnage dans le jeu Zombie Sur
                 }
             });
             
-            // Player vs Zombies (perte de vie)
+            
             if (!invincible) {
                 zombies.forEach(zombie => {
                     const dx = playerX - zombie.x;
                     const dy = playerY - zombie.y;
                     const distance = Math.sqrt(dx * dx + dy * dy);
                     
-                    if (distance < 35) { // Distance de collision
+                    if (distance < 35) { 
                         playerLives--;
                         updateUI();
                         
                         if (playerLives <= 0) {
                             gameOver();
                         } else {
-                            // Période d'invincibilité après avoir perdu une vie
+                            
                             invincible = true;
                             player.style.opacity = '0.5';
                             setTimeout(() => {
@@ -1036,7 +1035,7 @@ Voici le code complet avec 3 vies ajoutées au personnage dans le jeu Zombie Sur
             }
         }
         
-        // Game over
+        
         function gameOver() {
             gameRunning = false;
             finalScoreElement.textContent = score;
@@ -1044,26 +1043,26 @@ Voici le code complet avec 3 vies ajoutées au personnage dans le jeu Zombie Sur
             clearInterval(shootInterval);
         }
         
-        // Boucle de jeu
+        
         function gameLoop() {
             if (!gameRunning) return;
             
-            // Déplacement du joueur
+           
             let moveX = 0;
             let moveY = 0;
             
-            // Gestion des touches ZQSD
+            
             if (keys['z'] || keys['arrowup']) moveY -= playerSpeed;
             if (keys['s'] || keys['arrowdown']) moveY += playerSpeed;
             if (keys['q'] || keys['arrowleft']) moveX -= playerSpeed;
             if (keys['d'] || keys['arrowright']) moveX += playerSpeed;
             
-            // Mettre à jour la dernière direction de déplacement
+            
             if (moveX !== 0 || moveY !== 0) {
                 lastMoveAngle = Math.atan2(moveY, moveX);
             }
             
-            // Normalisation des diagonales
+            
             if (moveX !== 0 && moveY !== 0) {
                 moveX *= 0.7071; // 1/√2
                 moveY *= 0.7071;
@@ -1074,12 +1073,12 @@ Voici le code complet avec 3 vies ajoutées au personnage dans le jeu Zombie Sur
             
             updatePlayerPosition();
             
-            // Tir manuel avec espace
+            
             if (keys[' ']) {
                 shoot(lastMoveAngle);
             }
             
-                    // Déplacement des zombies
+                   
                     zombies.forEach(zombie => {
                 const dx = playerX - zombie.x;
                 const dy = playerY - zombie.y;
@@ -1092,11 +1091,11 @@ Voici le code complet avec 3 vies ajoutées au personnage dans le jeu Zombie Sur
                 zombie.element.style.left = zombie.x + 'px';
                 zombie.element.style.top = zombie.y + 'px';
                 
-                // Rotation du zombie vers le joueur
+                
                 zombie.element.style.transform = `translate(-50%, -50%) rotate(${angle + Math.PI/2}rad)`;
             });
             
-            // Déplacement des balles
+            
             bullets.forEach((bullet, index) => {
                 bullet.x += Math.cos(bullet.angle) * bullet.speed;
                 bullet.y += Math.sin(bullet.angle) * bullet.speed;
@@ -1104,7 +1103,7 @@ Voici le code complet avec 3 vies ajoutées au personnage dans le jeu Zombie Sur
                 bullet.element.style.left = bullet.x + 'px';
                 bullet.element.style.top = bullet.y + 'px';
                 
-                // Supprimer les balles hors écran
+                
                 if (bullet.x < 0 || bullet.x > gameContainer.offsetWidth || 
                     bullet.y < 0 || bullet.y > gameContainer.offsetHeight) {
                     gameContainer.removeChild(bullet.element);
@@ -1116,7 +1115,7 @@ Voici le code complet avec 3 vies ajoutées au personnage dans le jeu Zombie Sur
             requestAnimationFrame(gameLoop);
         }
         
-        // Redimensionnement
+        
         window.addEventListener('resize', () => {
             playerX = Math.max(20, Math.min(gameContainer.offsetWidth - 20, playerX));
             playerY = Math.max(20, Math.min(gameContainer.offsetHeight - 20, playerY));
