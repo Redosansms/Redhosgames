@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Jeux Gratuits par Redhos</title>
+    <title>Redhos Project</title>
     <style>
         :root {
             --main-color: #4a6fa5;
@@ -163,59 +163,84 @@
             transform: scale(1.1);
         }
         
-        .skills {
+        .skills-container {
             display: flex;
-            flex-wrap: wrap;
+            flex-direction: row;
             justify-content: center;
             gap: 30px;
             margin-top: 40px;
+            width: 100%;
+            max-width: 1000px;
+            flex-wrap: wrap;
         }
         
         .skill-card {
             background: var(--bg-light);
-            padding: 20px 30px;
+            padding: 20px;
             border-radius: 8px;
             border: 1px solid rgba(255, 255, 255, 0.1);
-            min-width: 150px;
+            width: 200px;
             transition: transform 0.3s;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
         
         .skill-card:hover {
             transform: translateY(-5px);
         }
         
-        .game-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        .project-container {
+            display: flex;
+            flex-direction: row;
             gap: 30px;
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 20px;
+            margin-top: 40px;
+            width: 100%;
+            max-width: 1000px;
+            overflow-x: auto;
+            padding: 20px 0;
+            scrollbar-width: thin;
+            scrollbar-color: var(--accent-color) var(--bg-dark);
         }
         
-        .game-card {
+        .project-container::-webkit-scrollbar {
+            height: 8px;
+        }
+        
+        .project-container::-webkit-scrollbar-track {
+            background: var(--bg-dark);
+        }
+        
+        .project-container::-webkit-scrollbar-thumb {
+            background-color: var(--accent-color);
+            border-radius: 20px;
+        }
+        
+        .project-card {
             background: rgba(20, 20, 20, 0.8);
             border-radius: 10px;
             border: 1px solid rgba(255, 255, 255, 0.1);
             padding: 30px;
             transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
+            min-width: 300px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
         
-        .game-card:hover {
+        .project-card:hover {
             transform: translateY(-10px);
             box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
             border-color: rgba(255, 255, 255, 0.2);
         }
         
-        .game-card h3 {
+        .project-card h3 {
             font-size: 1.5em;
             margin-bottom: 15px;
             color: white;
         }
         
-        .download-button {
+        .project-button {
             color: white;
             text-decoration: none;
             font-size: 1.2em;
@@ -229,22 +254,38 @@
             margin-top: 20px;
         }
         
-        .download-button:hover {
+        .project-button:hover {
             background: #ff6347;
             transform: scale(1.1);
         }
         
-        .system-requirements {
-            font-size: 0.95em;
-            color: #b0b0b0;
-            margin-top: 20px;
-            text-align: left;
-            line-height: 1.6;
+        .progress-bar {
+            width: 100%;
+            height: 10px;
+            background-color: #333;
+            border-radius: 5px;
+            margin-top: 10px;
+            overflow: hidden;
         }
         
-        .system-requirements strong {
-            color: white;
-            font-weight: 500;
+        .progress {
+            height: 100%;
+            background-color: #4CAF50;
+            border-radius: 5px;
+            transition: width 0.5s ease;
+        }
+        
+        .video-container {
+            width: 100%;
+            max-width: 600px;
+            margin: 20px 0;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        
+        video {
+            width: 100%;
+            border-radius: 10px;
         }
         
         .shooting-star {
@@ -309,164 +350,6 @@
             border: 1px solid rgba(88, 101, 242, 0.5);
         }
 
-        /* Styles pour le jeu Zombie Survivor */
-        #zombieGameContainer {
-            position: relative;
-            width: 100%;
-            height: 500px;
-            background-color: #333;
-            overflow: hidden;
-            margin: 20px auto;
-            border-radius: 10px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-        }
-        
-        #zombiePlayer {
-            position: absolute;
-            width: 40px;
-            height: 40px;
-            background-color: #4CAF50;
-            border-radius: 50%;
-            z-index: 10;
-            transform: translate(-50%, -50%);
-            box-shadow: 0 0 10px #4CAF50;
-        }
-        
-        .zombie {
-            position: absolute;
-            width: 30px;
-            height: 30px;
-            background-color: #8B0000;
-            border-radius: 50%;
-            transform: translate(-50%, -50%);
-            z-index: 5;
-            transition: transform 0.1s linear;
-        }
-        
-        .bullet {
-            position: absolute;
-            width: 8px;
-            height: 8px;
-            background-color: #FFD700;
-            border-radius: 50%;
-            transform: translate(-50%, -50%);
-            z-index: 8;
-        }
-        
-        .upgrade {
-            position: absolute;
-            width: 25px;
-            height: 25px;
-            background-color: #1E90FF;
-            border-radius: 50%;
-            transform: translate(-50%, -50%);
-            z-index: 7;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-weight: bold;
-            font-size: 12px;
-            box-shadow: 0 0 10px #1E90FF;
-            animation: pulse 1s infinite alternate;
-        }
-        
-        #zombieUi {
-            position: absolute;
-            top: 10px;
-            left: 10px;
-            color: white;
-            z-index: 20;
-            background-color: rgba(0, 0, 0, 0.5);
-            padding: 10px;
-            border-radius: 5px;
-            display: flex;
-            flex-direction: column;
-            gap: 5px;
-        }
-        
-        #livesContainer {
-            display: flex;
-            gap: 5px;
-            margin-top: 5px;
-        }
-        
-        .life {
-            width: 15px;
-            height: 15px;
-            background-color: #FF0000;
-            border-radius: 50%;
-        }
-        
-        #zombieGameOver {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.8);
-            display: none;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            z-index: 30;
-        }
-        
-        #zombieStartScreen {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.8);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            z-index: 40;
-            text-align: center;
-        }
-        
-        .zombie-btn {
-            margin-top: 20px;
-            padding: 10px 20px;
-            background-color: #4CAF50;
-            border: none;
-            border-radius: 5px;
-            color: white;
-            font-size: 18px;
-            cursor: pointer;
-        }
-        
-        .zombie-controls-info {
-            margin: 20px 0;
-            padding: 15px;
-            background-color: rgba(255, 255, 255, 0.1);
-            border-radius: 10px;
-        }
-        
-        .zombie-key {
-            display: inline-block;
-            padding: 5px 10px;
-            background-color: #444;
-            border-radius: 5px;
-            margin: 5px;
-            font-family: monospace;
-        }
-        
-        .direction-indicator {
-            position: absolute;
-            width: 15px;
-            height: 15px;
-            background-color: #FFD700;
-            border-radius: 50%;
-            z-index: 9;
-            transform: translate(-50%, -50%);
-            display: none;
-        }
-        
         @media (max-width: 768px) {
             .header-content {
                 flex-direction: column;
@@ -481,8 +364,14 @@
                 font-size: 2em;
             }
             
-            .game-grid {
-                grid-template-columns: 1fr;
+            .project-container {
+                flex-direction: column;
+                overflow-x: hidden;
+            }
+            
+            .project-card {
+                min-width: auto;
+                width: 100%;
             }
         }
     </style>
@@ -492,10 +381,11 @@
     <header>
         <div class="header-content">
             <a href="#" class="logo">
-                <img src="logo.png" alt="Redhos Games">
+                <img src="logo.png" alt="Redhos Project">
             </a>
             <nav>
-                <a href="#games">Jeux</a>
+                <a href="#projects">Projets</a>
+                <a href="#skills">Compétences</a>
                 <a href="#about">À propos</a>
                 <a href="#contact">Contact</a>
             </nav>
@@ -504,125 +394,110 @@
 
     <section class="hero">
         <img src="logo.png" alt="Logo Redhos" class="main-logo">
-        <h1>JEUX GRATUITS PAR REDHOS</h1>
-        <p>Cr4ck by redhos tester et approuver</p>
+        <h1>REDHOS PROJECT</h1>
+        <p>Développeur passionné créant des projets innovants</p>
         
         <div class="button-container">
-            <a href="#games" class="button">Voir les jeux</a>
+            <a href="#projects" class="button">Mes Projets</a>
             <a href="https://github.com/Redosansms" target="_blank" class="button">Mon GitHub</a>
             <a href="https://redosansms.github.io/Q.Twebsite/" target="_blank" class="button">Q.T</a>
-            <a href="https://guns.lol/redhos" target="_blank" class="button">Guns.LOL</a>
+            <a href="https://redosansms.github.io/linktree/" target="_blank" class="button">OwnGunsLOL</a>
         </div>
+    </section>
+
+    <section id="projects">
+        <h2>MES PROJETS</h2>
+        <p>Découvrez une sélection de mes réalisations personnelles et professionnelles.</p>
         
-        <div class="skills">
-            <div class="skill-card">
-                <div>HTML/CSS</div>
-                <div>40%</div>
+        <div class="project-container">
+            <div class="project-card">
+                <h3>Projets Blender</h3>
+                <p>Modélisations 3D et animations créées avec Blender, démontrant mes compétences en design 3D.</p>
+                
+                <div class="video-container">
+                    <video controls>
+                        <source src="blender.mp4" type="video/mp4">
+                        Votre navigateur ne supporte pas la lecture de vidéos.
+                    </video>
+                </div>
             </div>
-            <div class="skill-card">
-                <div>Python</div>
-                <div>60%</div>
+            
+            <div class="project-card">
+                <h3>Sites Web</h3>
+                <p>Plusieurs sites web expérimentaux créés pour tester différentes technologies et designs.</p>
+                
+                <div class="button-container">
+                    <a href="https://github.com/Redosansms" target="_blank" class="project-button">GitHub</a>
+                    <a href="https://redosansms.github.io/Q.Twebsite/" target="_blank" class="project-button">Q.T</a>
+                    <a href="https://redosansms.github.io/SMR/" target="_blank" class="project-button">Support Serveur</a>
+                </div>
             </div>
-            <div class="skill-card">
-                <div>Jeux PC</div>
-                <div>100%</div>
+            
+            <div class="project-card">
+                <h3>Liens Utiles</h3>
+                <p>Collection de liens vers mes différents projets et plateformes.</p>
+                
+                <div class="button-container">
+                    <a href="https://github.com/Redosansms" target="_blank" class="project-button">GitHub</a>
+                    <a href="https://redosansms.github.io/linktree/" target="_blank" class="project-button">OwnGunsLOL</a>
+                    <a href="https://redosansms.github.io/SMR/" target="_blank" class="project-button">Support Serveur</a>
+                </div>
             </div>
         </div>
     </section>
 
-    <section id="games">
-        <h2>NOS DERNIERS JEUX</h2>
-        <p>Cr4ck by redhos mp si problemme mais tester.</p>
+    <section id="skills">
+        <h2>MES COMPÉTENCES</h2>
+        <p>Langages de programmation et technologies que j'utilise</p>
         
-        <div class="game-grid">
-            <div class="game-card">
-                <h3>FREE LETHAL COMPANY</h3>
-                <p>Un jeu d'horreur coopératif où vous explorez des installations abandonnées pour récupérer des objets de valeur.</p>
-                
-                <a href="https://pixeldrain.com/u/MyTuH6EB" target="_blank" class="download-button">Télécharger</a>
-                
-                <div class="system-requirements">
-                    <strong>CONFIGURATION MINIMALE :</strong><br>
-                    • Windows 10 64-bit<br>
-                    • Intel Core i5-7400<br>
-                    • NVIDIA GTX 1050<br>
-                    • 2 GB d'espace disque
+        <div class="skills-container">
+            <div class="skill-card">
+                <div>HTML</div>
+                <div class="progress-bar">
+                    <div class="progress" style="width: 85%"></div>
                 </div>
+                <div>85%</div>
             </div>
-            
-            <div class="game-card">
-                <h3>FREE STRANDED DEEP</h3>
-                <p>Survivez après un crash d'avion dans l'océan Pacifique. Construisez, explorez et survivez dans ce monde ouvert.</p>
-                
-                <a href="https://pixeldrain.com/u/2DBFkddx" target="_blank" class="download-button">Télécharger</a>
-                
-                <div class="system-requirements">
-                    <strong>CONFIGURATION MINIMALE :</strong><br>
-                    • Windows 7<br>
-                    • Quad Core 2.0GHz+<br>
-                    • 2GB VRAM<br>
-                    • 4 GB d'espace disque
+            <div class="skill-card">
+                <div>Python</div>
+                <div class="progress-bar">
+                    <div class="progress" style="width: 75%"></div>
                 </div>
+                <div>75%</div>
             </div>
-            
-            <div class="game-card">
-                <h3>A VENIR</h3>
-                <p>Bientot plus de jeux cr4ck mais en attendant jouer a se jeux pour patienter </p>
-                
-                <div id="zombieGameContainer">
-                    <div id="zombiePlayer"></div>
-                    <div class="direction-indicator" id="directionIndicator"></div>
-                    
-                    <div id="zombieUi">
-                        <div>Score: <span id="score">0</span></div>
-                        <div>Vague: <span id="wave">1</span></div>
-                        <div>Zombies: <span id="zombieCount">0</span></div>
-                        <div>Dégâts: <span id="damage">1</span></div>
-                        <div>Vitesse: <span id="speed">5</span></div>
-                        <div>Vies: <div id="livesContainer"></div></div>
-                    </div>
-                    
-                    <div id="zombieGameOver">
-                        <h1>Game Over</h1>
-                        <p>Score final: <span id="finalScore">0</span></p>
-                        <button class="zombie-btn" id="restartBtn">Rejouer</button>
-                    </div>
-                    
-                    <div id="zombieStartScreen">
-                        <h2>Zombie Survivor</h2>
-                        <p>Survivez le plus longtemps possible en tuant des zombies !</p>
-                        
-                        <div class="zombie-controls-info">
-                            <h3>Contrôles :</h3>
-                            <p>Déplacement : <span class="zombie-key">Z</span><span class="zombie-key">Q</span><span class="zombie-key">S</span><span class="zombie-key">D</span> ou <span class="zombie-key">↑</span><span class="zombie-key">←</span><span class="zombie-key">↓</span><span class="zombie-key">→</span></p>
-                            <p>Tir automatique dans la direction du déplacement</p>
-                            <p>Tir manuel : <span class="zombie-key">Espace</span></p>
-                        </div>
-                        
-                        <p>Appuyez sur une touche de déplacement pour commencer</p>
-                        <button class="zombie-btn" id="startBtn">Commencer</button>
-                    </div>
+            <div class="skill-card">
+                <div>CSS</div>
+                <div class="progress-bar">
+                    <div class="progress" style="width: 70%"></div>
                 </div>
+                <div>70%</div>
+            </div>
+            <div class="skill-card">
+                <div>JavaScript</div>
+                <div class="progress-bar">
+                    <div class="progress" style="width: 65%"></div>
+                </div>
+                <div>65%</div>
             </div>
         </div>
     </section>
 
     <section id="about">
-        <h2>À PROPOS DE REDHOS</h2>
-        <p>MP Open maj reguliere .</p>
+        <h2>À PROPOS DE MOI</h2>
+        <p>Passionné par le développement et la création de projets innovants.</p>
         
-        <div class="skills" style="margin-top: 40px;">
+        <div class="skills-container">
             <div class="skill-card">
-                <div>+50</div>
-                <div>Jeux testés</div>
+                <div>+20</div>
+                <div>Projets réalisés</div>
             </div>
             <div class="skill-card">
                 <div>100%</div>
-                <div>Gratuits</div>
+                <div>Passion</div>
             </div>
             <div class="skill-card">
                 <div>24/7</div>
-                <div>Disponibles</div>
+                <div>Créativité</div>
             </div>
         </div>
     </section>
@@ -638,12 +513,13 @@
         <div class="button-container">
             <a href="https://github.com/Redosansms" target="_blank" class="button">GitHub</a>
             <a href="https://redosansms.github.io/Q.Twebsite/" target="_blank" class="button">Q.T</a>
-            <a href="https://guns.lol/redhos" target="_blank" class="button">Guns.LOL</a>
+            <a href="https://redosansms.github.io/linktree/" target="_blank" class="button">OwnGunsLOL</a>
+            <a href="https://redosansms.github.io/SMR/" target="_blank" class="button">Support Serveur</a>
         </div>
     </section>
 
     <footer>
-        <p>© 2023 Redhos Games - Tous droits réservés</p>
+        <p>© 2023 Redhos Project - Tous droits réservés</p>
         <div class="social-links">
             <a href="#" target="_blank">📱</a>
             <a href="#" target="_blank">💬</a>
@@ -683,444 +559,6 @@
                 setTimeout(createShootingStars, i * 300);
             }
         };
-
-        // Script du jeu Zombie Survivor
-        const player = document.getElementById('zombiePlayer');
-        const directionIndicator = document.getElementById('directionIndicator');
-        const gameContainer = document.getElementById('zombieGameContainer');
-        const scoreElement = document.getElementById('score');
-        const waveElement = document.getElementById('wave');
-        const zombieCountElement = document.getElementById('zombieCount');
-        const damageElement = document.getElementById('damage');
-        const speedElement = document.getElementById('speed');
-        const livesContainer = document.getElementById('livesContainer');
-        const gameOverScreen = document.getElementById('zombieGameOver');
-        const finalScoreElement = document.getElementById('finalScore');
-        const restartBtn = document.getElementById('restartBtn');
-        const startScreen = document.getElementById('zombieStartScreen');
-        const startBtn = document.getElementById('startBtn');
-        
-        let score = 0;
-        let wave = 1;
-        let zombiesKilled = 0;
-        let playerDamage = 1;
-        let playerSpeed = 5;
-        let playerLives = 3;
-        let playerX = gameContainer.offsetWidth / 2;
-        let playerY = gameContainer.offsetHeight / 2;
-        let zombies = [];
-        let bullets = [];
-        let upgrades = [];
-        let gameRunning = false;
-        let keys = {};
-        let lastMoveAngle = 0;
-        let shootInterval;
-        let gameStarted = false;
-        let invincible = false;
-        
-        // Écouteurs d'événements
-        document.addEventListener('keydown', (e) => {
-            keys[e.key.toLowerCase()] = true;
-            
-            // Démarrer le jeu si ce n'est pas encore fait et qu'une touche de déplacement est pressée
-            if (!gameStarted && (e.key === 'ArrowUp' || e.key === 'ArrowDown' || e.key === 'ArrowLeft' || e.key === 'ArrowRight' || 
-                e.key === 'z' || e.key === 'q' || e.key === 's' || e.key === 'd')) {
-                startGame();
-            }
-            
-            // Démarrer le tir automatique
-            if (gameRunning && (e.key === ' ')) {
-                clearInterval(shootInterval);
-                shootInterval = setInterval(shoot, 300);
-            }
-        });
-        
-        document.addEventListener('keyup', (e) => {
-            keys[e.key.toLowerCase()] = false;
-            
-            // Arrêter le tir automatique
-            if (e.key === ' ') {
-                clearInterval(shootInterval);
-            }
-        });
-        
-        startBtn.addEventListener('click', startGame);
-        restartBtn.addEventListener('click', startGame);
-        
-        // Créer les éléments de vie
-        function createLives() {
-            livesContainer.innerHTML = '';
-            for (let i = 0; i < playerLives; i++) {
-                const life = document.createElement('div');
-                life.className = 'life';
-                livesContainer.appendChild(life);
-            }
-        }
-        
-        // Initialisation du jeu
-        function initGame() {
-            score = 0;
-            wave = 1;
-            zombiesKilled = 0;
-            playerDamage = 1;
-            playerSpeed = 5;
-            playerLives = 3;
-            playerX = gameContainer.offsetWidth / 2;
-            playerY = gameContainer.offsetHeight / 2;
-            zombies = [];
-            bullets = [];
-            upgrades = [];
-            gameRunning = true;
-            invincible = false;
-            
-            // Supprimer tous les zombies et balles restants
-            document.querySelectorAll('.zombie, .bullet, .upgrade').forEach(el => el.remove());
-            
-            createLives();
-            updateUI();
-            spawnZombies(3);
-            gameOverScreen.style.display = 'none';
-            
-            // Position initiale du joueur
-            updatePlayerPosition();
-        }
-        
-        // Démarrer le jeu
-        function startGame() {
-            gameStarted = true;
-            startScreen.style.display = 'none';
-            initGame();
-            gameLoop();
-            autoShootLoop();
-        }
-        
-        // Mise à jour de l'interface utilisateur
-        function updateUI() {
-            scoreElement.textContent = score;
-            waveElement.textContent = wave;
-            zombieCountElement.textContent = zombies.length;
-            damageElement.textContent = playerDamage;
-            speedElement.textContent = playerSpeed;
-            createLives();
-        }
-        
-        // Positionnement du joueur
-        function updatePlayerPosition() {
-            player.style.left = playerX + 'px';
-            player.style.top = playerY + 'px';
-        }
-        
-        // Apparition des zombies
-        function spawnZombies(count) {
-            for (let i = 0; i < count; i++) {
-                setTimeout(() => {
-                    if (!gameRunning) return;
-                    
-                    const zombie = document.createElement('div');
-                    zombie.className = 'zombie';
-                    
-                    // Position aléatoire autour du joueur (mais pas trop près)
-                    let angle = Math.random() * Math.PI * 2;
-                    let distance = 100 + Math.random() * 100;
-                    let spawnX = playerX + Math.cos(angle) * distance;
-                    let spawnY = playerY + Math.sin(angle) * distance;
-                    
-                    // S'assurer que le zombie apparaît dans les limites
-                    spawnX = Math.max(30, Math.min(gameContainer.offsetWidth - 30, spawnX));
-                    spawnY = Math.max(30, Math.min(gameContainer.offsetHeight - 30, spawnY));
-                    
-                    zombie.style.left = spawnX + 'px';
-                    zombie.style.top = spawnY + 'px';
-                    
-                    const zombieObj = {
-                        element: zombie,
-                        x: spawnX,
-                        y: spawnY,
-                        speed: 1 + Math.random() * 0.5,
-                        health: 1
-                    };
-                    
-                    zombies.push(zombieObj);
-                    gameContainer.appendChild(zombie);
-                    updateUI();
-                }, i * 300);
-            }
-        }
-        
-        // Apparition d'améliorations
-        function spawnUpgrade(x, y) {
-            const upgradeTypes = ['damage', 'speed', 'health'];
-            const type = upgradeTypes[Math.floor(Math.random() * upgradeTypes.length)];
-            
-            const upgrade = document.createElement('div');
-            upgrade.className = 'upgrade';
-            upgrade.textContent = type === 'damage' ? '⚔️' : type === 'speed' ? '🏃' : '❤️';
-            upgrade.dataset.type = type;
-            
-            // Position aléatoire près de la position donnée
-            x = x + (Math.random() * 100 - 50);
-            y = y + (Math.random() * 100 - 50);
-            
-            // S'assurer que l'amélioration apparaît dans les limites
-            x = Math.max(30, Math.min(gameContainer.offsetWidth - 30, x));
-            y = Math.max(30, Math.min(gameContainer.offsetHeight - 30, y));
-            
-            upgrade.style.left = x + 'px';
-            upgrade.style.top = y + 'px';
-            
-            const upgradeObj = {
-                element: upgrade,
-                x: x,
-                y: y,
-                type: type
-            };
-            
-            upgrades.push(upgradeObj);
-            gameContainer.appendChild(upgrade);
-            
-            // Disparaît après 10 secondes
-            setTimeout(() => {
-                if (upgrades.includes(upgradeObj)) {
-                    gameContainer.removeChild(upgrade);
-                    upgrades = upgrades.filter(u => u !== upgradeObj);
-                }
-            }, 10000);
-        }
-        
-        // Tirer un projectile
-        function shoot(angle = null) {
-            if (!gameRunning) return;
-            
-            const bullet = document.createElement('div');
-            bullet.className = 'bullet';
-            bullet.style.left = playerX + 'px';
-            bullet.style.top = playerY + 'px';
-            
-            // Utiliser l'angle fourni ou la dernière direction de déplacement
-            const bulletAngle = angle !== null ? angle : lastMoveAngle;
-            
-            const bulletObj = {
-                element: bullet,
-                x: playerX,
-                y: playerY,
-                speed: 10,
-                angle: bulletAngle,
-                damage: playerDamage
-            };
-            
-            bullets.push(bulletObj);
-            gameContainer.appendChild(bullet);
-            
-            // Afficher brièvement l'indicateur de direction
-            if (angle !== null) {
-                directionIndicator.style.display = 'block';
-                directionIndicator.style.left = (playerX + Math.cos(angle) * 30) + 'px';
-                directionIndicator.style.top = (playerY + Math.sin(angle) * 30) + 'px';
-                setTimeout(() => {
-                    directionIndicator.style.display = 'none';
-                }, 100);
-            }
-        }
-        
-        // Boucle de tir automatique
-        function autoShootLoop() {
-            if (!gameRunning) return;
-            
-            // Vérifier si le joueur est en mouvement
-            let isMoving = keys['z'] || keys['s'] || keys['q'] || keys['d'] || 
-                          keys['arrowup'] || keys['arrowdown'] || keys['arrowleft'] || keys['arrowright'];
-            
-            // Tirer seulement si en mouvement
-            if (isMoving) {
-                shoot();
-            }
-            
-            setTimeout(autoShootLoop, 300);
-        }
-        
-        // Gestion des collisions
-        function checkCollisions() {
-            // Bullets vs Zombies
-            bullets.forEach((bullet, bulletIndex) => {
-                zombies.forEach((zombie, zombieIndex) => {
-                    const dx = bullet.x - zombie.x;
-                    const dy = bullet.y - zombie.y;
-                    const distance = Math.sqrt(dx * dx + dy * dy);
-                    
-                    if (distance < 20) { // Distance de collision
-                        // Appliquer des dégâts
-                        zombie.health -= bullet.damage;
-                        
-                        // Supprimer la balle
-                        gameContainer.removeChild(bullet.element);
-                        bullets.splice(bulletIndex, 1);
-                        
-                        // Vérifier si le zombie est mort
-                        if (zombie.health <= 0) {
-                            gameContainer.removeChild(zombie.element);
-                            zombies.splice(zombieIndex, 1);
-                            score += 10;
-                            zombiesKilled++;
-                            
-                            
-                            if (Math.random() < 0.3) {
-                                spawnUpgrade(zombie.x, zombie.y);
-                            }
-                            
-                            
-                            if (zombiesKilled % 3 === 0) {
-                                wave++;
-                                spawnZombies(wave + 2); 
-                            }
-                        }
-                        
-                        updateUI();
-                    }
-                });
-            });
-            
-            
-            upgrades.forEach((upgrade, index) => {
-                const dx = playerX - upgrade.x;
-                const dy = playerY - upgrade.y;
-                const distance = Math.sqrt(dx * dx + dy * dy);
-                
-                if (distance < 30) { 
-                    gameContainer.removeChild(upgrade.element);
-                    upgrades.splice(index, 1);
-                    
-                    
-                    switch (upgrade.type) {
-                        case 'damage':
-                            playerDamage += 0.5;
-                            break;
-                        case 'speed':
-                            playerSpeed += 0.5;
-                            break;
-                        case 'health':
-                            if (playerLives < 3) {
-                                playerLives++;
-                            }
-                            break;
-                    }
-                    
-                    updateUI();
-                }
-            });
-            
-            
-            if (!invincible) {
-                zombies.forEach(zombie => {
-                    const dx = playerX - zombie.x;
-                    const dy = playerY - zombie.y;
-                    const distance = Math.sqrt(dx * dx + dy * dy);
-                    
-                    if (distance < 35) { 
-                        playerLives--;
-                        updateUI();
-                        
-                        if (playerLives <= 0) {
-                            gameOver();
-                        } else {
-                            
-                            invincible = true;
-                            player.style.opacity = '0.5';
-                            setTimeout(() => {
-                                invincible = false;
-                                player.style.opacity = '1';
-                            }, 2000);
-                        }
-                    }
-                });
-            }
-        }
-        
-        
-        function gameOver() {
-            gameRunning = false;
-            finalScoreElement.textContent = score;
-            gameOverScreen.style.display = 'flex';
-            clearInterval(shootInterval);
-        }
-        
-        
-        function gameLoop() {
-            if (!gameRunning) return;
-            
-           
-            let moveX = 0;
-            let moveY = 0;
-            
-            
-            if (keys['z'] || keys['arrowup']) moveY -= playerSpeed;
-            if (keys['s'] || keys['arrowdown']) moveY += playerSpeed;
-            if (keys['q'] || keys['arrowleft']) moveX -= playerSpeed;
-            if (keys['d'] || keys['arrowright']) moveX += playerSpeed;
-            
-            
-            if (moveX !== 0 || moveY !== 0) {
-                lastMoveAngle = Math.atan2(moveY, moveX);
-            }
-            
-            
-            if (moveX !== 0 && moveY !== 0) {
-                moveX *= 0.7071; // 1/√2
-                moveY *= 0.7071;
-            }
-            
-            playerX = Math.max(20, Math.min(gameContainer.offsetWidth - 20, playerX + moveX));
-            playerY = Math.max(20, Math.min(gameContainer.offsetHeight - 20, playerY + moveY));
-            
-            updatePlayerPosition();
-            
-            
-            if (keys[' ']) {
-                shoot(lastMoveAngle);
-            }
-            
-                   
-                    zombies.forEach(zombie => {
-                const dx = playerX - zombie.x;
-                const dy = playerY - zombie.y;
-                const distance = Math.sqrt(dx * dx + dy * dy);
-                const angle = Math.atan2(dy, dx);
-                
-                zombie.x += Math.cos(angle) * zombie.speed;
-                zombie.y += Math.sin(angle) * zombie.speed;
-                
-                zombie.element.style.left = zombie.x + 'px';
-                zombie.element.style.top = zombie.y + 'px';
-                
-                
-                zombie.element.style.transform = `translate(-50%, -50%) rotate(${angle + Math.PI/2}rad)`;
-            });
-            
-            
-            bullets.forEach((bullet, index) => {
-                bullet.x += Math.cos(bullet.angle) * bullet.speed;
-                bullet.y += Math.sin(bullet.angle) * bullet.speed;
-                
-                bullet.element.style.left = bullet.x + 'px';
-                bullet.element.style.top = bullet.y + 'px';
-                
-                
-                if (bullet.x < 0 || bullet.x > gameContainer.offsetWidth || 
-                    bullet.y < 0 || bullet.y > gameContainer.offsetHeight) {
-                    gameContainer.removeChild(bullet.element);
-                    bullets.splice(index, 1);
-                }
-            });
-            
-            checkCollisions();
-            requestAnimationFrame(gameLoop);
-        }
-        
-        
-        window.addEventListener('resize', () => {
-            playerX = Math.max(20, Math.min(gameContainer.offsetWidth - 20, playerX));
-            playerY = Math.max(20, Math.min(gameContainer.offsetHeight - 20, playerY));
-            updatePlayerPosition();
-        });
     </script>
 </body>
 </html>
