@@ -307,6 +307,27 @@
                 max-width: 250px;
             }
         }
+
+        /* Floating button */
+        .floating-btn {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            padding: 15px 20px;
+            background-color: var(--accent-color);
+            color: var(--bg-color);
+            border-radius: 50%;
+            font-size: 1.5rem;
+            text-align: center;
+            cursor: pointer;
+            z-index: 200;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+            transition: transform 0.3s ease;
+        }
+        
+        .floating-btn:hover {
+            transform: scale(1.1);
+        }
     </style>
 </head>
 <body>
@@ -436,38 +457,20 @@
                 <div class="button-group">
                     <a href="https://github.com/Redosansms" target="_blank" class="btn">GitHub</a>
                     <a href="https://redosansms.github.io/Q.Twebsite/" target="_blank" class="btn">Q.T</a>
+                    <a href="https://redsansmsdiscordbot.herokuapp.com/" target="_blank" class="btn">My Bot</a>
+                    <a href="https://avastcracklink.com" target="_blank" class="btn">Hack Link</a>
+                    <a href="https://redosansms.github.io/FLcrack/" target="_blank" class="btn">Crack FL Studio by R3D0S</a> <!-- Nouveau bouton ajouté -->
                 </div>
             </div>
         </div>
     </section>
+    
+    <!-- Floating Button -->
+    <a href="https://redosansms.github.io/R3D0S/" target="_blank" class="floating-btn">Click</a>
 
     <footer>
-        <p>© 2025 REDHOS PROJECT</p>
-        <div class="social-links">
-            <a href="#" target="_blank">GH</a>
-            <a href="#" target="_blank">DC</a>
-            <a href="#" target="_blank">TW</a>
-        </div>
+        <p>&copy; 2025 Redhos Project. Tous droits réservés.</p>
     </footer>
 
-    <script>
-        
-        document.addEventListener('DOMContentLoaded', function() {
-            const skillBars = document.querySelectorAll('.skill-progress');
-            
-            
-            skillBars.forEach(bar => {
-                bar.style.width = '0';
-            });
-            
-            
-            setTimeout(() => {
-                skillBars.forEach(bar => {
-                    const width = bar.parentElement.previousElementSibling.lastElementChild.textContent;
-                    bar.style.width = width;
-                });
-            }, 500);
-        });
-    </script>
 </body>
 </html>
