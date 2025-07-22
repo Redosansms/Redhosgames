@@ -11,6 +11,7 @@
             --accent-color: #ffffff;
             --border-color: rgba(255,255,255,0.1);
             --card-bg: rgba(30,30,30,0.7);
+            --section-spacing: 8rem;
         }
         
         * {
@@ -25,21 +26,28 @@
             color: var(--text-color);
             line-height: 1.6;
             overflow-x: hidden;
+            scroll-behavior: smooth;
         }
         
         header {
             position: fixed;
             top: 0;
             width: 100%;
-            padding: 1.5rem;
-            backdrop-filter: blur(10px);
-            background: rgba(10,10,10,0.8);
+            padding: 1.2rem 2rem;
+            backdrop-filter: blur(16px);
+            background: rgba(10,10,10,0.86);
             border-bottom: 1px solid var(--border-color);
-            z-index: 100;
+            z-index: 1000;
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        
+        header.scrolled {
+            padding: 0.8rem 2rem;
+            background: rgba(10,10,10,0.96);
         }
         
         .nav-container {
-            max-width: 1200px;
+            max-width: 1280px;
             margin: 0 auto;
             display: flex;
             justify-content: space-between;
@@ -50,107 +58,148 @@
             display: flex;
             align-items: center;
             text-decoration: none;
+            gap: 0.8rem;
         }
         
         .logo img {
-            height: 40px;
-            transition: transform 0.3s ease;
+            height: 36px;
+            transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
         }
         
-        .logo img:hover {
-            transform: scale(1.05);
+        .logo:hover img {
+            transform: rotate(-10deg) scale(1.1);
+        }
+        
+        .logo-text {
+            font-weight: 600;
+            font-size: 1.2rem;
+            background: linear-gradient(to right, var(--accent-color), rgba(255,255,255,0.8));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        
+        nav {
+            display: flex;
+            gap: 2rem;
         }
         
         nav a {
             color: var(--text-color);
             text-decoration: none;
-            margin-left: 2rem;
-            font-weight: 400;
+            font-weight: 450;
             position: relative;
             font-size: 0.95rem;
+            opacity: 0.9;
+            transition: all 0.3s ease;
         }
         
-        nav a::after {
+        nav a::before {
             content: '';
             position: absolute;
-            bottom: -2px;
+            bottom: -4px;
             left: 0;
             width: 0;
-            height: 1px;
+            height: 2px;
             background: var(--accent-color);
-            transition: width 0.3s ease;
+            transition: width 0.4s cubic-bezier(0.65, 0, 0.35, 1);
         }
         
-        nav a:hover::after {
+        nav a:hover {
+            opacity: 1;
+        }
+        
+        nav a:hover::before {
             width: 100%;
-        }
-        
-        section {
-            min-height: 100vh;
-            padding: 6rem 2rem;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            max-width: 1200px;
-            margin: 0 auto;
         }
         
         .hero {
+            min-height: 100vh;
+            padding: 0 2rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
             text-align: center;
-            padding-top: 4rem;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.03) 0%, rgba(0,0,0,0) 70%);
+            z-index: -1;
+            animation: rotate 30s linear infinite;
+        }
+        
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
         }
         
         .main-logo {
-            max-width: 400px;
-            width: 100%;
-            margin: 0 auto 30px;
-            display: block;
-            animation: pulse 2s infinite;
+            width: 180px;
+            height: 180px;
+            object-fit: contain;
+            margin-bottom: 2.5rem;
+            filter: drop-shadow(0 0 20px rgba(255,255,255,0.1));
+            transition: transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
         }
         
-        @keyframes pulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.05); }
-            100% { transform: scale(1); }
+        .hero:hover .main-logo {
+            transform: scale(1.05) rotate(5deg);
+        }
+        
+        .hero-content {
+            max-width: 720px;
         }
         
         .hero h1 {
-            font-size: clamp(2rem, 5vw, 3.5rem);
+            font-size: clamp(2.5rem, 6vw, 4rem);
             font-weight: 800;
             margin-bottom: 1.5rem;
-            letter-spacing: -1px;
+            letter-spacing: -0.03em;
+            line-height: 1.1;
         }
         
         .hero p {
-            font-size: 1.1rem;
+            font-size: 1.15rem;
             max-width: 600px;
-            margin: 0 auto 2.5rem;
-            opacity: 0.9;
+            margin: 0 auto 3rem;
+            opacity: 0.85;
         }
         
         .button-group {
             display: flex;
-            gap: 1rem;
+            gap: 1.2rem;
             justify-content: center;
             flex-wrap: wrap;
         }
         
         .btn {
-            padding: 0.8rem 1.8rem;
+            padding: 0.9rem 2rem;
             border: 1px solid var(--border-color);
             border-radius: 50px;
             color: var(--text-color);
             text-decoration: none;
             font-weight: 500;
-            transition: all 0.3s ease;
+            transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
             background: var(--card-bg);
-            backdrop-filter: blur(5px);
+            backdrop-filter: blur(8px);
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
         }
         
         .btn:hover {
             border-color: var(--accent-color);
-            transform: translateY(-2px);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
         }
         
         .btn-primary {
@@ -160,179 +209,211 @@
         }
         
         .btn-primary:hover {
-            opacity: 0.9;
+            transform: translateY(-3px) scale(1.03);
+            box-shadow: 0 12px 24px rgba(255,255,255,0.1);
+        }
+        
+        section {
+            padding: var(--section-spacing) 2rem;
+            position: relative;
+        }
+        
+        .section-container {
+            max-width: 1200px;
+            margin: 0 auto;
         }
         
         .section-title {
-            font-size: clamp(1.5rem, 3vw, 2.2rem);
+            font-size: clamp(1.8rem, 4vw, 2.8rem);
             font-weight: 700;
-            margin-bottom: 3rem;
-            position: relative;
+            margin-bottom: 4rem;
             text-align: center;
+            position: relative;
+            display: inline-block;
+            left: 50%;
+            transform: translateX(-50%);
         }
         
         .section-title::after {
             content: '';
-            display: block;
-            width: 50px;
+            position: absolute;
+            bottom: -12px;
+            left: 0;
+            width: 100%;
             height: 2px;
-            background: var(--accent-color);
-            margin: 1rem auto 0;
+            background: linear-gradient(90deg, transparent, var(--accent-color), transparent);
         }
         
         .card-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 2rem;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2.5rem;
             width: 100%;
         }
         
         .card {
             background: var(--card-bg);
-            border-radius: 12px;
-            padding: 2rem;
+            border-radius: 16px;
+            padding: 2.5rem;
             border: 1px solid var(--border-color);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            backdrop-filter: blur(5px);
+            transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+            backdrop-filter: blur(8px);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(255,255,255,0.03) 0%, rgba(0,0,0,0) 100%);
+            z-index: -1;
         }
         
         .card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+            border-color: rgba(255,255,255,0.2);
         }
         
         .card h3 {
-            font-size: 1.3rem;
-            margin-bottom: 1rem;
+            font-size: 1.4rem;
+            margin-bottom: 1.2rem;
             font-weight: 600;
         }
         
         .card p {
             opacity: 0.8;
-            margin-bottom: 1.5rem;
-            font-size: 0.95rem;
-        }
-        
-        .skill-meter {
-            margin-top: 2rem;
-        }
-        
-        .skill {
-            margin-bottom: 1.5rem;
-        }
-        
-        .skill-info {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 0.5rem;
-        }
-        
-        .skill-bar {
-            height: 4px;
-            background: rgba(255,255,255,0.1);
-            border-radius: 2px;
-            overflow: hidden;
-        }
-        
-        .skill-progress {
-            height: 100%;
-            background: var(--accent-color);
-            border-radius: 2px;
+            margin-bottom: 2rem;
+            font-size: 1rem;
+            line-height: 1.7;
         }
         
         footer {
             text-align: center;
-            padding: 3rem 2rem;
+            padding: 5rem 2rem;
             border-top: 1px solid var(--border-color);
+            position: relative;
+        }
+        
+        footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--accent-color), transparent);
         }
         
         .social-links {
             display: flex;
             justify-content: center;
-            gap: 1.5rem;
-            margin: 1.5rem 0;
+            gap: 2rem;
+            margin: 2.5rem 0;
+            flex-wrap: wrap;
         }
         
         .social-links a {
             color: var(--text-color);
             font-size: 1.2rem;
-            transition: opacity 0.3s ease;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1rem;
+            border-radius: 50px;
+            border: 1px solid transparent;
         }
         
         .social-links a:hover {
-            opacity: 0.7;
+            border-color: var(--border-color);
+            transform: translateY(-3px);
         }
         
-        .typewriter {
-            overflow: hidden;
-            border-right: 2px solid var(--accent-color);
-            white-space: nowrap;
-            margin: 0 auto;
-            letter-spacing: 1px;
-            animation: 
-                typing 3.5s steps(40, end),
-                blink-caret 0.75s step-end infinite;
+        /* Bouton flottant amélioré - plus discret */
+        .floating-btn {
+            position: fixed;
+            padding: 0.8rem 1.5rem;
+            background-color: rgba(255,255,255,0.15);
+            color: var(--accent-color);
+            font-weight: 500;
+            border-radius: 50px;
+            text-decoration: none;
+            z-index: 999;
+            transition: all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+            border: 1px solid rgba(255,255,255,0.2);
+            backdrop-filter: blur(10px);
+            font-size: 0.9rem;
+            opacity: 0.8;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
         }
-
-        @keyframes typing {
-            from { width: 0 }
-            to { width: 100% }
+        
+        .floating-btn:hover {
+            opacity: 1;
+            background-color: rgba(255,255,255,0.25);
+            transform: scale(1.05);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.15);
         }
-
-        @keyframes blink-caret {
-            from, to { border-color: transparent }
-            50% { border-color: var(--accent-color); }
-        }
-
+        
         @media (max-width: 768px) {
+            :root {
+                --section-spacing: 5rem;
+            }
+            
+            header {
+                padding: 1rem;
+            }
+            
             .nav-container {
                 flex-direction: column;
                 gap: 1rem;
             }
             
             nav {
-                display: flex;
-                gap: 1rem;
+                gap: 1.2rem;
+                flex-wrap: wrap;
+                justify-content: center;
             }
             
-            nav a {
-                margin-left: 0;
-            }
-            
-            section {
-                padding: 5rem 1.5rem;
+            .hero {
+                padding-top: 6rem;
             }
             
             .main-logo {
-                max-width: 250px;
+                width: 140px;
+                height: 140px;
             }
-        }
-
-        /* Floating Button */
-        .floating-btn {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            padding: 10px 20px;
-            background-color: var(--accent-color);
-            color: var(--bg-color);
-            font-weight: 600;
-            border-radius: 50px;
-            transition: transform 0.3s ease;
-            text-decoration: none;
-        }
-
-        .floating-btn:hover {
-            transform: translateY(-5px);
+            
+            .button-group {
+                gap: 1rem;
+            }
+            
+            .btn {
+                padding: 0.8rem 1.5rem;
+            }
+            
+            .card-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .floating-btn {
+                padding: 0.7rem 1.2rem;
+                font-size: 0.8rem;
+            }
         }
     </style>
 </head>
 <body>
     
-    <header>
+    <header id="main-header">
         <div class="nav-container">
             <a href="#" class="logo">
                 <img src="logo.png" alt="Redhos Project">
+                <span class="logo-text">REDHOS</span>
             </a>
             <nav>
                 <a href="#projects">Projets</a>
@@ -344,52 +425,214 @@
     </header>
 
     <section class="hero">
-        <img src="logo.png" alt="Logo Redhos" class="main-logo">
-        <h1>REDHOS PROJECT</h1>
-        <p>Dev html css java python tres debutant</p>
-        
-        <div class="button-group">
-            <a href="#projects" class="btn btn-primary">Mes Projets</a>
-            <a href="https://github.com/Redosansms" target="_blank" class="btn">Mon GitHub</a>
-            <a href="https://pixeldrain.com/u/MCswthzM" target="_blank" class="btn">Crack FL Studio by R3D0S</a> <!-- Nouveau bouton ajouté -->
+        <div class="hero-content">
+            <img src="logo.png" alt="Logo Redhos" class="main-logo">
+            <h1>REDHOS PROJECT</h1>
+            <p>Développement web et solutions créatives</p>
+            
+            <div class="button-group">
+                <a href="#projects" class="btn btn-primary">Mes Projets</a>
+                <a href="https://github.com/Redosansms" target="_blank" class="btn">Mon GitHub</a>
+            </div>
         </div>
     </section>
 
     <section id="projects">
-        <h2 class="section-title">PROJETS RÉCENTS</h2>
-        
-        <div class="card-grid">
-            <div class="card">
-                <h3>Q.T Website</h3>
-                <p>Consepte pour la ville de claye souilly.</p>
-                <a href="https://redosansms.github.io/Q.Twebsite/" target="_blank" class="btn">Voir le projet</a>
-            </div>
+        <div class="section-container">
+            <h2 class="section-title">PROJETS RÉCENTS</h2>
             
-            <div class="card">
-                <h3>OwnGunsLOL</h3>
-                <p>Gunslol premium coder moi meme.</p>
-                <a href="https://redosansms.github.io/linktree/" target="_blank" class="btn">Accéder</a>
-            </div>
-            
-            <div class="card">
-                <h3>Cr4ck Avast</h3>
-                <p>Solution technique pour besoins spécifiques.</p>
-                <a href="https://pixeldrain.com/u/bQwujcqs" target="_blank" class="btn">Télécharger</a>
+            <div class="card-grid">
+                <div class="card">
+                    <h3>Q.T Website</h3>
+                    <p>Concept innovant pour la ville de Claye-Souilly, mélangeant design moderne et fonctionnalités intuitives.</p>
+                    <a href="https://redosansms.github.io/Q.Twebsite/" target="_blank" class="btn">Voir le projet</a>
+                </div>
+                
+                <div class="card">
+                    <h3>OwnGunsLOL</h3>
+                    <p>Version premium de GunsLOL entièrement codée en interne avec des fonctionnalités exclusives.</p>
+                    <a href="https://redosansms.github.io/linktree/" target="_blank" class="btn">Accéder</a>
+                </div>
+                
+                <div class="card">
+                    <h3>Cr4ck Avast</h3>
+                    <p>Solution technique avancée répondant à des besoins spécifiques en matière de sécurité.</p>
+                    <a href="https://pixeldrain.com/u/bQwujcqs" target="_blank" class="btn">Télécharger</a>
+                </div>
             </div>
         </div>
     </section>
 
-    <footer>
-        <p>&copy; 2025 Redhos Project. All rights reserved.</p>
-        
-        <div class="social-links">
-            <a href="https://twitter.com/redosansms" target="_blank">Twitter</a>
-            <a href="https://github.com/Redosansms" target="_blank">GitHub</a>
-            <a href="https://www.linkedin.com/in/redosansms/" target="_blank">LinkedIn</a>
+    <section id="skills">
+        <div class="section-container">
+            <h2 class="section-title">COMPÉTENCES</h2>
+            
+            <div class="card-grid">
+                <div class="card">
+                    <h3>Développement Web</h3>
+                    <p>Création de sites modernes et responsives avec HTML5, CSS3 et JavaScript.</p>
+                </div>
+                
+                <div class="card">
+                    <h3>Python</h3>
+                    <p>Développement d'outils et scripts automatisés pour diverses applications.</p>
+                </div>
+                
+                <div class="card">
+                    <h3>Solutions Créatives</h3>
+                    <p>Approche innovante pour résoudre des problèmes techniques complexes.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer id="contact">
+        <div class="section-container">
+            <p>&copy; 2025 Redhos Project. Tous droits réservés.</p>
+            
+            <div class="social-links">
+                <a href="https://twitter.com/redosansms" target="_blank">Twitter</a>
+                <a href="https://github.com/Redosansms" target="_blank">GitHub</a>
+                <a href="https://www.linkedin.com/in/redosansms/" target="_blank">LinkedIn</a>
+            </div>
         </div>
     </footer>
 
-    <a href="https://pixeldrain.com/u/MCswthzM" target="_blank" class="floating-btn">Crack FL Studio by R3D0S</a> <!-- Floating button added -->
+    <a href="https://redosansms.github.io/R3D0S/" class="floating-btn" id="floatingBtn">
+        CLIQUEZ ICI
+    </a>
     
+    <script>
+        // Animation du header au scroll
+        const header = document.getElementById('main-header');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+        
+        // Mouvement intelligent du bouton flottant
+        const floatingBtn = document.getElementById('floatingBtn');
+        let isMoving = false;
+        let avoidAreas = [];
+        
+        // Définir les zones à éviter (coins et bords)
+        function calculateAvoidAreas() {
+            const padding = 100; // Distance minimale des bords
+            const viewportWidth = window.innerWidth;
+            const viewportHeight = window.innerHeight;
+            
+            return [
+                { x: 0, y: 0, width: padding, height: viewportHeight }, // Bord gauche
+                { x: viewportWidth - padding, y: 0, width: padding, height: viewportHeight }, // Bord droit
+                { x: 0, y: 0, width: viewportWidth, height: padding }, // Bord haut
+                { x: 0, y: viewportHeight - padding, width: viewportWidth, height: padding } // Bord bas
+            ];
+        }
+        
+        // Vérifie si une position est dans une zone à éviter
+        function isInAvoidArea(x, y) {
+            return avoidAreas.some(area => 
+                x >= area.x && 
+                x <= area.x + area.width && 
+                y >= area.y && 
+                y <= area.y + area.height
+            );
+        }
+        
+        // Génère une position aléatoire sûre
+        function getSafePosition() {
+            const btnWidth = floatingBtn.offsetWidth;
+            const btnHeight = floatingBtn.offsetHeight;
+            const viewportWidth = window.innerWidth;
+            const viewportHeight = window.innerHeight;
+            
+            let safeX, safeY;
+            let attempts = 0;
+            const maxAttempts = 100;
+            
+            do {
+                safeX = Math.random() * (viewportWidth - btnWidth);
+                safeY = Math.random() * (viewportHeight - btnHeight);
+                attempts++;
+            } while (isInAvoidArea(safeX, safeY) && attempts < maxAttempts);
+            
+            return {
+                x: Math.max(20, Math.min(viewportWidth - btnWidth - 20, safeX)),
+                y: Math.max(20, Math.min(viewportHeight - btnHeight - 20, safeY))
+            };
+        }
+        
+        // Déplace le bouton de manière fluide
+        function moveButtonSmoothly() {
+            if (isMoving) return;
+            
+            isMoving = true;
+            avoidAreas = calculateAvoidAreas();
+            const newPos = getSafePosition();
+            
+            floatingBtn.style.transition = 'all 12s linear';
+            floatingBtn.style.left = newPos.x + 'px';
+            floatingBtn.style.top = newPos.y + 'px';
+            
+            // Changement subtil de taille et d'opacité
+            const scale = Math.random() * 0.2 + 0.9;
+            floatingBtn.style.transform = `scale(${scale})`;
+            floatingBtn.style.opacity = Math.random() * 0.3 + 0.7;
+            
+            setTimeout(() => {
+                isMoving = false;
+            }, 12000); // Durée du mouvement
+        }
+        
+        // Initialisation
+        window.addEventListener('load', () => {
+            // Position initiale aléatoire
+            const initialPos = getSafePosition();
+            floatingBtn.style.left = initialPos.x + 'px';
+            floatingBtn.style.top = initialPos.y + 'px';
+            floatingBtn.style.opacity = '0';
+            
+            // Apparition progressive
+            setTimeout(() => {
+                floatingBtn.style.transition = 'opacity 1s ease';
+                floatingBtn.style.opacity = '0.8';
+                
+                // Commencer le mouvement après l'apparition
+                setTimeout(() => {
+                    moveButtonSmoothly();
+                    setInterval(moveButtonSmoothly, 12000); // Répéter toutes les 12 secondes
+                }, 1000);
+            }, 1000);
+            
+            // Interaction au clic
+            floatingBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                
+                // Effet de clic subtil
+                floatingBtn.style.transition = 'all 0.3s ease';
+                floatingBtn.style.transform = 'scale(0.95)';
+                floatingBtn.style.opacity = '0.9';
+                
+                setTimeout(() => {
+                    window.location.href = floatingBtn.href;
+                }, 300);
+            });
+        });
+        
+        // Réagir au redimensionnement de la fenêtre
+        window.addEventListener('resize', () => {
+            const currentX = parseInt(floatingBtn.style.left);
+            const currentY = parseInt(floatingBtn.style.top);
+            
+            if (isInAvoidArea(currentX, currentY)) {
+                const safePos = getSafePosition();
+                floatingBtn.style.left = safePos.x + 'px';
+                floatingBtn.style.top = safePos.y + 'px';
+            }
+        });
+    </script>
 </body>
 </html>
